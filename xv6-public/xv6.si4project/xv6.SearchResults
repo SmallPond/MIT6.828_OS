@@ -1,0 +1,4 @@
+---- sys_write Matches (3 in 2 files) ----
+syscall.c line 104 : extern int sys_write(void);
+syscall.c line 126 : [SYS_write]   sys_write,
+sysfile.c line 83 : sys_write(void)
