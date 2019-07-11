@@ -1,4 +1,0 @@
----- sched_halt Matches (3 in 1 files) ----
-sched.c (kern) line 8 : void sched_halt(void);
-sched_yield in sched.c (kern) : 	sched_halt();
-sched.c (kern) line 56 : sched_halt(void)

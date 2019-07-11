@@ -74,8 +74,11 @@ duppage(envid_t envid, unsigned pn)
 	// 用户空间的地址较低
 	uint32_t va = pn * PGSIZE;
 
-	
-	if ( (uvpt[pn] & PTE_W) || (uvpt[pn] & PTE_COW)) {
+	if (uvpt[pn] & PTE_SHARE) {
+		if((ret = sys_page_map(thisenv->env_id, (void *) va, envid, (void * )va, uvpt[pn] & PTE_SYSCALL)) <0 ) 
+			return ret;
+	}
+	else if ( (uvpt[pn] & PTE_W) || (uvpt[pn] & PTE_COW)) {
 		
 		// 子进程标记
 		if ((ret = sys_page_map(thisenv->env_id, (void *) va, envid, (void *) va, PTE_P|PTE_U|PTE_COW)) < 0)

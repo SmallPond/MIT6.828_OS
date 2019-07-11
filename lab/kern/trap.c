@@ -122,12 +122,12 @@ trap_init(void)
     SETGATE(idt[T_SIMDERR], 0, GD_KT, simderr_handler, 0);
     SETGATE(idt[T_SYSCALL], 0, GD_KT, syscall_handler, 3);
 	// IRQ
-	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER],    0, GD_KT, timer_handler, 3);
-	SETGATE(idt[IRQ_OFFSET + IRQ_KBD],      0, GD_KT, kbd_handler,     3);
-	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL],   0, GD_KT, serial_handler,  3);
-	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 0, GD_KT, spurious_handler, 3);
-	SETGATE(idt[IRQ_OFFSET + IRQ_IDE],      0, GD_KT, ide_handler,     3);
-	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR],    0, GD_KT, error_handler,   3);
+	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER],    0, GD_KT, timer_handler, 0);
+	SETGATE(idt[IRQ_OFFSET + IRQ_KBD],      0, GD_KT, kbd_handler,     0);
+	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL],   0, GD_KT, serial_handler,  0);
+	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 0, GD_KT, spurious_handler, 0);
+	SETGATE(idt[IRQ_OFFSET + IRQ_IDE],      0, GD_KT, ide_handler,     0);
+	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR],    0, GD_KT, error_handler,   0);
 
 	// Per-CPU setup 
 	trap_init_percpu();
@@ -161,10 +161,12 @@ trap_init_percpu(void)
 	// user space on that CPU.
 	//
 	// LAB 4: Your code here:
+	// 初始化 cpu 的栈段
 	thiscpu->cpu_ts.ts_esp0 = KSTACKTOP - cpunum() * (KSTKGAP + KSTKSIZE);
     thiscpu->cpu_ts.ts_ss0 = GD_KD;
-
+	thiscpu->cpu_ts.ts_iomb = sizeof(struct Taskstate);
     // Initialize the TSS slot of the gdt.
+    // TSS Task State Segment
     gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T32A, (uint32_t) (&thiscpu->cpu_ts), sizeof(struct Taskstate) - 1, 0);
     gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
 
@@ -243,10 +245,22 @@ trap_dispatch(struct Trapframe *tf)
 											tf->tf_regs.reg_edi, 
 											tf->tf_regs.reg_esi);
 			break;
+		// Handle clock interrupts. Don't forget to acknowledge the
+		// interrupt using lapic_eoi() before calling the scheduler!
+		// LAB 4: Your code here.
 		case (IRQ_OFFSET + IRQ_TIMER):
 			// 回应8259A 接收中断。
 			lapic_eoi();
 			sched_yield();
+			break;
+			
+		case (IRQ_OFFSET + IRQ_KBD):
+			//lapic_eoi();
+			kbd_intr();
+			break;
+		case (IRQ_OFFSET + IRQ_SERIAL):
+			// lapic_eoi();
+			serial_intr();
 			break;
 			
 		default: 
@@ -261,11 +275,6 @@ trap_dispatch(struct Trapframe *tf)
 			break;
 
 	}
-	
-	// Handle clock interrupts. Don't forget to acknowledge the
-	// interrupt using lapic_eoi() before calling the scheduler!
-	// LAB 4: Your code here.
-
 	
 }
 
