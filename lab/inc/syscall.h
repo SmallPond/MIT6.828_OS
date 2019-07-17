@@ -17,7 +17,10 @@ enum {
 	SYS_yield,
 	SYS_ipc_try_send,
 	SYS_ipc_recv,
-	NSYSCALLS
+	SYS_time_msec,
+	SYS_pkt_try_send,
+	SYS_pkt_try_recv,
+	NSYSCALLS,
 };
 
 #endif /* !JOS_INC_SYSCALL_H */

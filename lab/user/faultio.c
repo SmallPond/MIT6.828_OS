@@ -18,5 +18,7 @@ umain(int argc, char **argv)
 	// fault, because user-level code shouldn't be able to use the io space.
 	outb(0x1F6, 0xE0 | (1<<4));
 
+
     cprintf("%s: made it here --- bug\n");
+
 }

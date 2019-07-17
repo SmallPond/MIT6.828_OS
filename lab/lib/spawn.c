@@ -101,6 +101,7 @@ spawn(const char *prog, const char **argv)
 	// Create new child environment
 	if ((r = sys_exofork()) < 0)
 		return r;
+
 	// 父进程返回子进程的PID
 	child = r;
 	
@@ -305,6 +306,7 @@ static int
 copy_shared_pages(envid_t child)
 {
 	// LAB 5: Your code here.
+
 	size_t pn;
 	int r;
 	struct Env *e;
@@ -317,6 +319,7 @@ copy_shared_pages(envid_t child)
 			}
 		}
 	}
+
 	return 0;
 }
 

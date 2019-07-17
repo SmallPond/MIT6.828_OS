@@ -48,6 +48,10 @@ bc_pgfault(struct UTrapframe *utf)
 	// the disk.
 	//
 	// LAB 5: you code here:
+
+
+	// Clear the dirty bit for the disk block page since we just read the
+	// block from disk
 	// envid 传入 0？ 在最初的哪个进程下 alloc 一个page ?
 	addr =(void *) ROUNDDOWN(addr, PGSIZE);
 	if ( (r = sys_page_alloc(0, addr, PTE_P|PTE_W|PTE_U)) < 0) {
@@ -61,6 +65,7 @@ bc_pgfault(struct UTrapframe *utf)
 	// Clear the dirty bit for the disk block page since we just read the
 	// block from disk
 	// 只是为了修改标志位
+
 	if ((r = sys_page_map(0, addr, 0, addr, uvpt[PGNUM(addr)] & PTE_SYSCALL)) < 0)
 		panic("in bc_pgfault, sys_page_map: %e", r);
 
@@ -85,6 +90,7 @@ flush_block(void *addr)
 
 	if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
 		panic("flush_block of bad va %08x", addr);
+
 	int r;
 	// LAB 5: Your code here.
 	addr = (void *)ROUNDDOWN(addr, PGSIZE);

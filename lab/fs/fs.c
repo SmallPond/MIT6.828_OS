@@ -41,7 +41,9 @@ void
 free_block(uint32_t blockno)
 {
 	// Blockno zero is the null pointer of block numbers.
+
 	// 0 块启动块
+
 	if (blockno == 0)
 		panic("attempt to free zero block");
 	bitmap[blockno/32] |= 1<<(blockno%32);
@@ -72,6 +74,7 @@ alloc_block(void)
 		}
 	}
 	// panic("alloc_block not implemented");
+
 	return -E_NO_DISK;
 }
 
@@ -175,6 +178,7 @@ file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool all
 	        *ppdiskbno = (uint32_t *)diskaddr(f->f_indirect) + filebno;
 	   return 0;
        // panic("file_block_walk not implemented");
+
 }
 
 // Set *blk to the address in memory where the filebno'th
@@ -188,6 +192,7 @@ file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool all
 int
 file_get_block(struct File *f, uint32_t filebno, char **blk)
 {
+
 	// LAB 5: Your code here.
 	uint32_t *pdiskbno;
 	int r;
@@ -207,6 +212,7 @@ file_get_block(struct File *f, uint32_t filebno, char **blk)
 	*blk = diskaddr(*pdiskbno);
 	return 0;
 	//panic("file_get_block not implemented");
+
 }
 
 // Try to find a file named "name" in dir.  If so, set *file to it.
@@ -224,7 +230,9 @@ dir_lookup(struct File *dir, const char *name, struct File **file)
 	// Search dir for name.
 	// We maintain the invariant that the size of a directory-file
 	// is always a multiple of the file system's block size.
+
 	// 目录size 必须为 文件系统块size的倍数。
+
 	assert((dir->f_size % BLKSIZE) == 0);
 	nblock = dir->f_size / BLKSIZE;
 	for (i = 0; i < nblock; i++) {
@@ -232,7 +240,9 @@ dir_lookup(struct File *dir, const char *name, struct File **file)
 			return r;
 		f = (struct File*) blk;
 		for (j = 0; j < BLKFILES; j++)
+
 			// 不会出现子目录与文件同名吗？
+
 			if (strcmp(f[j].f_name, name) == 0) {
 				*file = &f[j];
 				return 0;
@@ -263,7 +273,9 @@ dir_alloc_file(struct File *dir, struct File **file)
 				return 0;
 			}
 	}
+
 	// 目录里没有空项，增添一个块
+
 	dir->f_size += BLKSIZE;
 	if ((r = file_get_block(dir, i, &blk)) < 0)
 		return r;

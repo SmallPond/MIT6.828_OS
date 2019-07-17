@@ -13,6 +13,7 @@
 #include <kern/picirq.h>
 #include <kern/cpu.h>
 #include <kern/spinlock.h>
+#include <kern/time.h>
 
 static struct Taskstate ts;
 
@@ -227,8 +228,6 @@ print_regs(struct PushRegs *regs)
 static void
 trap_dispatch(struct Trapframe *tf)
 {
-	// Handle processor exceptions.
-	// LAB 3: Your code here.
 	switch(tf->tf_trapno) {
 		case T_PGFLT:
 			page_fault_handler(tf);
@@ -251,6 +250,7 @@ trap_dispatch(struct Trapframe *tf)
 		case (IRQ_OFFSET + IRQ_TIMER):
 			// 回应8259A 接收中断。
 			lapic_eoi();
+			time_tick();
 			sched_yield();
 			break;
 			
@@ -273,7 +273,6 @@ trap_dispatch(struct Trapframe *tf)
 				return;
 			}
 			break;
-
 	}
 	
 }

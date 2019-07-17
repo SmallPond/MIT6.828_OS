@@ -1,3 +1,0 @@
----- IOPL Matches (2 in 2 files) ----
-env_create in env.c (kern) : 		newenv->env_tf.tf_eflags |= IOPL
-syscall.c (kern) line 134 : // protection level 3 (CPL 3), interrupts enabled, and IOPL of 0.

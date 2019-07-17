@@ -53,6 +53,9 @@ again:
 			// then check whether 'fd' is 0.
 			// If not, dup 'fd' onto file descriptor 0,
 			// then close the original 'fd'.
+			// LAB 5: Your code here.
+			// panic("< redirection not implemented");
+
 			if ( (fd = open(t, O_RDONLY) )< 0 ) {
 				fprintf(2,"file %s is no exist\n", t);
 				exit();
@@ -62,8 +65,7 @@ again:
 				close(fd);
 			}
 			
-			// LAB 5: Your code here.
-			// panic("< redirection not implemented");
+			
 			break;
 
 		case '>':	// Output redirection

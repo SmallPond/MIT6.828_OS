@@ -11,6 +11,8 @@
 #include <kern/syscall.h>
 #include <kern/console.h>
 #include <kern/sched.h>
+#include <kern/time.h>
+#include <kern/e1000.h>
 
 // Print a string to the system console.
 // The string is exactly 'len' characters long.
@@ -55,11 +57,13 @@ sys_env_destroy(envid_t envid)
 
 	if ((r = envid2env(envid, &e, 1)) < 0)
 		return r;
+
 	
 	if (e == curenv)
 		cprintf("[%08x] exiting gracefully\n", curenv->env_id);
 	else
 		cprintf("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
+
 	env_destroy(e);
 	return 0;
 }
@@ -430,6 +434,30 @@ sys_ipc_recv(void *dstva)
 	return 0;
 }
 
+// Return the current time.
+static int
+sys_time_msec(void)
+{
+	// LAB 6: Your code here.
+	return time_msec();
+	// panic("sys_time_msec not implemented");
+}
+
+int 
+sys_pkt_try_send(void * buf, size_t len)
+{
+	user_mem_assert(curenv, buf, len, PTE_U);
+	return e1000_transmit(buf, len);
+}
+
+int 
+sys_pkt_try_receive(void *rev_buf, size_t *len)
+{
+	//cprintf("try recive...\n");
+	return e1000_receive(rev_buf, len);
+}
+
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
@@ -472,6 +500,13 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 
 	case SYS_env_set_trapframe:
 		return sys_env_set_trapframe((envid_t) a1, (struct Trapframe *) a2);
+	case SYS_time_msec:
+		return sys_time_msec();
+	case SYS_pkt_try_send:
+		return sys_pkt_try_send((void *) a1, (size_t) a2);
+	case SYS_pkt_try_recv:
+		return sys_pkt_try_receive((void *) a1, (size_t *) a2);
+		
 	case NSYSCALLS:
 		return -E_INVAL;
 	

@@ -42,7 +42,7 @@
  *                     |      Invalid Memory (*)      | --/--  KSTKGAP    |
  *                     +------------------------------+                   |
  *                     :              .               :                   |
- *                     :              .               :                   |
+ * 注意PTSIZE 与 PGSIZE:                 .               :                   |
  *    MMIOLIM ------>  +------------------------------+ 0xefc00000      --+
  *                     |       Memory-mapped I/O      | RW/--  PTSIZE
  * ULIM, MMIOBASE -->  +------------------------------+ 0xef800000
