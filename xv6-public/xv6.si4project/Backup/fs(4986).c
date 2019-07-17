@@ -375,23 +375,18 @@ bmap(struct inode *ip, uint bn)
 {
   uint addr, *a;
   struct buf *bp;
-  struct buf *bp2;
-  // 直接索引结点数目 bn= 0~10
+
   if(bn < NDIRECT){
-  	// 创建直接索引
     if((addr = ip->addrs[bn]) == 0)
       ip->addrs[bn] = addr = balloc(ip->dev);
     return addr;
   }
   bn -= NDIRECT;
-  
-  // #define NINDIRECT (BSIZE / sizeof(uint))  BSIZE = 512
+
   if(bn < NINDIRECT){
-  	// 一级索引
     // Load indirect block, allocating if necessary.
     if((addr = ip->addrs[NDIRECT]) == 0)
       ip->addrs[NDIRECT] = addr = balloc(ip->dev);
-	
     bp = bread(ip->dev, addr);
     a = (uint*)bp->data;
     if((addr = a[bn]) == 0){
@@ -402,37 +397,6 @@ bmap(struct inode *ip, uint bn)
     return addr;
   }
 
-  
-  bn -= NINDIRECT;
-  // 二级索引
-  if (bn < NDINDIRECT) {
-  	// 根结点
-    if((addr = ip->addrs[NDIRECT+1]) == 0)
-		ip->addrs[NDIRECT+1] = addr = balloc(ip->dev);
-
-	bp = bread(ip->dev, addr);
-    // 指向一级索引
-    a = (uint *)bp->data;
-    if ((addr = a[bn/NINDIRECT]) == 0) {
-       a[bn/NINDIRECT] = addr = balloc(ip->dev);
-	   log_write(bp);
-	}
-	
-	bp2 = bread(ip->dev, addr);
-	// 二级页表
-	a = (uint *)bp2->data;
-	if ((addr = a[bn%NINDIRECT]) == 0) {
-	  a[bn%NINDIRECT] = addr = balloc(ip->dev);
-      log_write(bp2);
-	}
-	
-	brelse(bp2);
-	brelse(bp);
-	return addr;
-	//
-  }
-
-  
   panic("bmap: out of range");
 }
 
