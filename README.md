@@ -1,19 +1,68 @@
-# Introduction
-课程评价：**神级课程——要是早遇到，我还会是这种 five 系列**
 
-课程网址：[6.828: Operating System Engineering](https://pdos.csail.mit.edu/6.828/2018/schedule.html)
+# MIT6.828 Operating System Engineering
+花了两个月多的时间，终于把 MIT6.828 的课程跟完了。刚接触这个课程时，就有一种感觉：哇，好神奇！ 这个课程真的是循序渐进，一步一步在你的脑海里建立起 OS 的大厦框架。从 Lab1 的手把手教学到 Lab6 的放任你自由，很好地对学生的学习进行了引导。学完这个课程后，你也就拥有了一个属于你自己的完整的内核雏形！
 
-xv6 讲义：[a simple, Unix-like teaching operating system](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)
+# 1. 简介
+课程评价：**神级课程——要是早遇到，我还会是这种 five（废物） 系列**
 
-实现环境：
-- VMware 虚拟机
+课程网址：[6.828: Operating System Engineering](https://pdos.csail.mit.edu/6.828/2018/schedule.html)，一直跟着其 schedule 走就可以啦。
+
+xv6 讲义：[a simple, Unix-like teaching operating system](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)，讲义中会将每个部分的实现讲得十分详细，在代码编写时遇到不太清晰的概念时，可以多参考讲义。
+
+我的实现环境：
+- VMware Workstation虚拟机
 - Ubuntu16.04
-- qemu，最好使用 MIT 官方给的 patch 版本。安装方法参考下面 tools 链接
+- qemu，最好使用 MIT 给的 patch 版本（Lab6 用到 pacth 版本的qemu 较多）。安装方法也可参考[Tools Used in 6.828](https://pdos.csail.mit.edu/6.828/2018/tools.html) 链接
 - 工具链 [Tools Used in 6.828](https://pdos.csail.mit.edu/6.828/2018/tools.html)
 
-# 参考文献
+环境搭建网络上教程很多，这里我就不再赘述，直接给出别的大佬写的教程：[MIT-6.828-JOS-环境搭建](https://www.cnblogs.com/gatsby123/p/9746193.html)
+
+# 2. Xv6
+学习6.828时，你会发现经常遇到 xv6 和 JOS这两个名词，不明白它们两者之间的关系，在完成实验时思路就会不是很清晰。xv6 是一个类Unix的教学操作系统，而 JOS 是在xv6的基础上改写，让我们能在其上进行实验的 OS。 所以实际上，当我们遇到不会实现的问题时，可以去参考 xv6 相应部分的源码。
+
+Homework 实现：完整实现代码。[Github_SmallPond/MIT6.828_OS](https://github.com/SmallPond/MIT6.828_OS/tree/master/xv6-public)
+
+- [MIT6.828_Homework_Shell_MIT_6.828](https://blog.csdn.net/Small_Pond/article/details/90544379)
+- [MIT6.828_HW2_Boot_xv6_MIT6.828](https://blog.csdn.net/Small_Pond/article/details/90665444)
+- [MIT6.828_HW3_XV6 System calls](https://blog.csdn.net/Small_Pond/article/details/91345372)
+- [ MIT6.828_HW4_xv6 lazy page allocation](https://blog.csdn.net/Small_Pond/article/details/91346550)
+- [ MIT6.828_HW5_xv6 CPU alarm](https://blog.csdn.net/Small_Pond/article/details/92838818)
+- [MIT6.828_HW6_Threads and Locking](https://blog.csdn.net/Small_Pond/article/details/92838852)
+- [MIT6.828_HW7_xv6 locking](https://blog.csdn.net/Small_Pond/article/details/93200120)
+- [MIT6.828_HW8_User-level threads](https://blog.csdn.net/Small_Pond/article/details/94600772)
+- [MIT6.828_HW9_barriers](https://blog.csdn.net/Small_Pond/article/details/94968225)
+- [MIT6.828_HW10_Bigger file for xv6](https://blog.csdn.net/Small_Pond/article/details/95009224)
+- [MIT6.828_HW11_xv6 log](https://blog.csdn.net/Small_Pond/article/details/95210975)
+
+# 3. JOS
+以下是我实验过程中记下的笔记，包含我的实现思路以及代码。 不过有些重复的细节，我就没有记录，可以参考我的完整实现代码。[Github_SmallPond/MIT6.828_OS](https://github.com/SmallPond/MIT6.828_OS)
+
+- Lab1 Booting a PC
+    - [ LAB_1_Part1_PC Bootstrap](https://blog.csdn.net/Small_Pond/article/details/90603631)
+    - [LAB_1_Part2_The Boot Loader](https://blog.csdn.net/Small_Pond/article/details/90603631)
+    - [LAB1_Part3_The Kernel](https://blog.csdn.net/Small_Pond/article/details/90603540)
+- Lab2 Memory management
+    - [LAB2_Part1_Physical Page Management](https://blog.csdn.net/Small_Pond/article/details/90742208)
+    - [LAB2_Part2_Virtual Memory](https://blog.csdn.net/Small_Pond/article/details/91038373)
+    - [ LAB2_Part3_Kernel Address Space(内核地址空间)](https://blog.csdn.net/Small_Pond/article/details/91288098)
+- Lab3 User-Level Environments
+    - [LAB3_User-Level Environments_PartA_User Environments and Exception Handling](https://blog.csdn.net/Small_Pond/article/details/92688212)
+    - [LAB3_User-Level Environments_PartB Page Faults, Breakpoints Exceptions, and System Calls](https://blog.csdn.net/Small_Pond/article/details/92806443)
+
+- Lab4 Preemptive Multitasking_
+    - [LAB4_Preemptive Multitasking_PartA Multiprocessor Support and Cooperative Multitasking](https://blog.csdn.net/Small_Pond/article/details/93232270)
+    - [LAB4_Preemptive Multitasking_PartB Copy-on-Write Fork](https://blog.csdn.net/Small_Pond/article/details/94558421)
+    - [LAB4_Preemptive Multitasking_PartC Preemptive Multitasking and IPC](https://blog.csdn.net/Small_Pond/article/details/94862893)
+- Lab5 File system, Spawn and Shell
+    - [Lab5_File system, Spawn and Shell](https://blog.csdn.net/Small_Pond/article/details/95765544)
+- Lab6 Network Driver
+    - [Lab6_Network Driver](https://blog.csdn.net/Small_Pond/article/details/96323655)
+
+
+# 4. 参考文献
 1. [MIT 6.828 JOS 操作系统学习笔记/fatsheep9146](https://www.cnblogs.com/fatsheep9146/category/769143.html)，刚入门时参考，包括环境搭建。博文写得十分详细，可惜貌似只写到了 Lab2。
 2.  [clpsz/mit-jos-2014](https://github.com/clpsz/mit-jos-2014)，此大神放出了自己到 Lab4 的代码，其文档提及了一些细节，很有帮助。
 3. [Unknown Unknown](https://buweilv.github.io/categories/OS/)，过程较详细（相当于对官方文档做了一遍翻译），英语不好可以参考这边，但我还是建议以官方文档为主，毕竟英语还是要学好呀。这位大神做到了LAB5，但不包括HW。
+4. [bysui的博客](https://blog.csdn.net/bysui/article/category/6232831), 这位大神完成了全部的实验，但是我在后面才发现这么好的资源！
 
-还有一些进行简单参考的博文，没有记录下来，实在抱歉。由衷感谢以上各位大神。
+我的课程能顺利完成，少不了各位大佬记录下的实验过程，由衷感谢以上各位大神。同时希望我也能帮到后来的学习者~
