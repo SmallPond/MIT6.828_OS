@@ -38,25 +38,25 @@ Homework 实现：完整实现代码。[Github_SmallPond/MIT6.828_OS](https://gi
 以下是我实验过程中记下的笔记，包含我的实现思路以及代码。 不过有些重复的细节，我就没有记录，可以参考我的完整实现代码。[Github_SmallPond/MIT6.828_OS](https://github.com/SmallPond/MIT6.828_OS)
 
 - Lab1 Booting a PC
-    - [ LAB_1_Part1_PC Bootstrap](https://blog.dingbiao.top/2020/07/24/23.html)
-    - [LAB_1_Part2_The Boot Loader](https://blog.dingbiao.top/2020/07/24/23.html)
-    - [LAB1_Part3_The Kernel](https://blog.dingbiao.top/2020/07/24/24.html)
+    - [ LAB_1_Part1_PC Bootstrap](https://www.dingmos.com/2020/07/24/23.html)
+    - [LAB_1_Part2_The Boot Loader](https://www.dingmos.com/2020/07/24/23.html)
+    - [LAB1_Part3_The Kernel](https://www.dingmos.com/2020/07/24/24.html)
 - Lab2 Memory management
-    - [LAB2_Part1_Physical Page Management](https://blog.dingbiao.top/2020/07/24/25.html)
-    - [LAB2_Part2_Virtual Memory](https://blog.dingbiao.top/2020/07/24/26.html)
-    - [ LAB2_Part3_Kernel Address Space(内核地址空间)](https://blog.dingbiao.top/2020/07/24/27.html)
+    - [LAB2_Part1_Physical Page Management](https://www.dingmos.com/2020/07/24/25.html)
+    - [LAB2_Part2_Virtual Memory](https://www.dingmos.com/2020/07/24/26.html)
+    - [ LAB2_Part3_Kernel Address Space(内核地址空间)](https://www.dingmos.com/2020/07/24/27.html)
 - Lab3 User-Level Environments
-    - [LAB3_User-Level Environments_PartA_User Environments and Exception Handling](https://blog.dingbiao.top/2020/07/27/28.html)
-    - [LAB3_User-Level Environments_PartB Page Faults, Breakpoints Exceptions, and System Calls](https://blog.dingbiao.top/2020/07/27/29.html)
+    - [LAB3_User-Level Environments_PartA_User Environments and Exception Handling](https://www.dingmos.com/2020/07/27/28.html)
+    - [LAB3_User-Level Environments_PartB Page Faults, Breakpoints Exceptions, and System Calls](https://www.dingmos.com/2020/07/27/29.html)
 
 - Lab4 Preemptive Multitasking_
-    - [LAB4_Preemptive Multitasking_PartA Multiprocessor Support and Cooperative Multitasking](https://blog.dingbiao.top/2020/07/28/30.html)
-    - [LAB4_Preemptive Multitasking_PartB Copy-on-Write Fork](https://blog.dingbiao.top/2020/07/28/31.html)
-    - [LAB4_Preemptive Multitasking_PartC Preemptive Multitasking and IPC](https://blog.dingbiao.top/2020/07/28/32.html)
+    - [LAB4_Preemptive Multitasking_PartA Multiprocessor Support and Cooperative Multitasking](https://www.dingmos.com/2020/07/28/30.html)
+    - [LAB4_Preemptive Multitasking_PartB Copy-on-Write Fork](https://www.dingmos.com/2020/07/28/31.html)
+    - [LAB4_Preemptive Multitasking_PartC Preemptive Multitasking and IPC](https://www.dingmos.com/2020/07/28/32.html)
 - Lab5 File system, Spawn and Shell
-    - [Lab5_File system, Spawn and Shell](https://blog.dingbiao.top/2020/07/28/33.html)
+    - [Lab5_File system, Spawn and Shell](https://www.dingmos.com/2020/07/28/33.html)
 - Lab6 Network Driver
-    - [Lab6_Network Driver](https://blog.dingbiao.top/2020/07/28/34.html)
+    - [Lab6_Network Driver](https://www.dingmos.com/2020/07/28/34.html)
 
 
 # 4. 参考文献
