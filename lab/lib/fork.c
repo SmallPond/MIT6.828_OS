@@ -149,15 +149,15 @@ fork(void)
 	// alloc a page and map child exception stack
     if ((r = sys_page_alloc(envid, (void *)(UXSTACKTOP-PGSIZE), PTE_U | PTE_P | PTE_W)) < 0)
         return r;
-	extern void _pgfault_upcall(void);
-	if ((r = sys_env_set_pgfault_upcall(envid, _pgfault_upcall)) < 0)
-		return r;
+    extern void _pgfault_upcall(void);
+    if ((r = sys_env_set_pgfault_upcall(envid, _pgfault_upcall)) < 0)
+	return r;
 
-	// Start the child environment running
-	if ((r = sys_env_set_status(envid, ENV_RUNNABLE)) < 0)
-		panic("sys_env_set_status: %e", r);
+    // Start the child environment running
+    if ((r = sys_env_set_status(envid, ENV_RUNNABLE)) < 0)
+	panic("sys_env_set_status: %e", r);
 	
-	return envid;
+    return envid;
 	// panic("fork not implemented");
 }
 
