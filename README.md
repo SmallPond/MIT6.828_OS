@@ -81,4 +81,6 @@ Homework 实现：完整实现代码。[Github_SmallPond/MIT6.828_OS](https://gi
 
 3. 6.828 和 6.s081 有什么区别
 
-2018 之前只有 6.828，后来出现了6.s081。简单来说，6.828面向研究生，6.s081 面向本科生。
+2018 之前只有 6.828，后来出现了6.s081。简单来说，2018之后的6.828面向研究生，重点是操作系统研究；6.s081 面向本科生，有些类似2018年6.828的低难度版？（我没有做）。以下是官方介绍。
+
+> 6.828 and 6.S081 will be offered as two separate classes. 6.S081 (Introduction to Operating Systems) will be taught as a stand-alone AUS subject for undergraduates, and will provide an introduction to operating systems. 6.828 will be offered as a graduate-level seminar-style class focused on research in operating systems. 6.828 will assume you have taken 6.S081 or an equivalent class. 
